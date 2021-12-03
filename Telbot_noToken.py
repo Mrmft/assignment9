@@ -55,14 +55,14 @@ def rand_game(user_number):
 ####################+
 
 
-@bot.message_handler(commands=['age'])
-def send_age(message):
-    bot.send_message(message.chat.id, 'لطفا سن خودت رو در قالب زیر بفرس تا بهت بگم چند سالته!!! \n yyyy/mm/dd')
-    bot.register_next_step_handler(message , find_age)
+#@bot.message_handler(commands=['age'])
+#def send_age(message):
+#    bot.send_message(message.chat.id, 'لطفا سن خودت رو در قالب زیر بفرس تا بهت بگم چند سالته!!! \n yyyy/mm/dd')
+#    bot.register_next_step_handler(message , find_age)
 
-def find_age(message):
-    x = jdatetime.date.today().split('-')
-    print(x , type(x))
+#def find_age(message):
+#    x = jdatetime.date.today().split('-')
+#    print(x , type(x))
 
 #####################
 
