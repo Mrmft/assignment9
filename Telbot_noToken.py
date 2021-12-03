@@ -34,7 +34,7 @@ def send_menu(message):
 
 @bot.message_handler(commands=['game'])
 def play_game(message):
-	global my_random_number 
+	global my_random_number
 	my_random_number =  str(randint(0 , 31))
 	user_number= bot.send_message(message.chat.id , 'من یک عدد فرضی بین 0 تا 30 انتخاب میکنم و شما باید اون عدد رو حدس بزنید.')	
 	bot.register_next_step_handler(user_number , rand_game)
@@ -42,27 +42,29 @@ def play_game(message):
 #####  NUMBER_GUESSING_GAME
 
 def rand_game(user_number):
-    if user_number.text == my_random_number:
-        bot.send_message(user_number.chat.id , 'هوورررررا شما برنده شدید!!!!!!')
-    elif user_number.text > my_random_number:
-        user_number_new = bot.send_message(user_number.chat.id , 'یه عدد کمتر پیشنهاد بده')
-        bot.register_next_step_handler(user_number_new , rand_game)
-    elif user_number.text < my_random_number:
-        user_number_new = bot.send_message(user_number.chat.id , 'یه عدد بیشتر پیشنهاد بده')
-        bot.register_next_step_handler(user_number_new , rand_game)
-        
+        if user_number.text == my_random_number:
+            bot.send_message(user_number.chat.id , 'هوورررررا شما برنده شدید!!!!!!')
+        elif user_number.text > my_random_number:
+            user_number_new = bot.send_message(user_number.chat.id , 'یه عدد کمتر پیشنهاد بده')
+            bot.register_next_step_handler(user_number_new , rand_game)
+        elif user_number.text < my_random_number:
+            user_number_new = bot.send_message(user_number.chat.id , 'یه عدد بیشتر پیشنهاد بده')
+            bot.register_next_step_handler(user_number_new , rand_game)
+            
 
 ####################+
 
 
-#@bot.message_handler(commands=['age'])
-#def send_age(message):
-#    bot.send_message(message.chat.id, 'لطفا سن خودت رو در قالب زیر بفرس تا بهت بگم چند سالته!!! \n yyyy/mm/dd')
-#    bot.register_next_step_handler(message , find_age)
+@bot.message_handler(commands=['age'])
+def send_age(message):
+    bot.send_message(message.chat.id, 'لطفا سن خودت رو در قالب زیر بفرس تا بهت بگم چند سالته!!! \n 1370/5/15')
+    bot.register_next_step_handler(message , find_age)
 
-#def find_age(message):
-#    x = jdatetime.date.today().split('-')
-#    print(x , type(x))
+def find_age(message):
+    x = jdatetime.date.today()
+    user_date = message.text.split('/')
+    age_year = x.year - int(user_date[0])
+    bot.send_message(message.chat.id , f'شما {age_year} ساله هستید.')    
 
 #####################
 
@@ -123,6 +125,14 @@ def qrcode_show(qr_message):
     img.save('qrcode.png')
     photo = open('qrcode.png', 'rb')
     bot.send_photo(qr_message.chat.id , photo)
+
+################
+
+@bot.message_handler(func=lambda m: True)
+def echo_all(message):
+	bot.reply_to(message, 'این چیزی ک گفتی و نفهمیدم ولی اگ دوس داری لینک کانالمو بهت میدم یکم آهنگ گوش کن \n https://t.me/+8LEymr45ntw4MmZk')
+
+
 
 bot.infinity_polling()
 
